@@ -12,8 +12,6 @@ const (
 	ContentTypeJSON = "application/json"
 )
 
-type Request struct{}
-
 type Ingestion struct {
 	Batch []model.IngestionEvent `json:"batch"`
 }
