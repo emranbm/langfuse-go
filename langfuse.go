@@ -47,10 +47,14 @@ func (l *Langfuse) WithFlushInterval(d time.Duration) *Langfuse {
 }
 
 func ingest(ctx context.Context, client *api.Client, events []model.IngestionEvent) error {
+	if len(events) == 0 {
+		return nil
+	}
+
 	req := api.Ingestion{
 		Batch: events,
 	}
-
+	// TODO: Check response status and at least log the partial failures (if not retry)
 	res := api.IngestionResponse{}
 	return client.Ingestion(ctx, &req, &res)
 }
